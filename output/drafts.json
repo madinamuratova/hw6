@@ -1,0 +1,104 @@
+[
+  {
+    "draft_id": 1,
+    "created_at": "2026-10-19T07:55:59-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 101,
+    "to": "Tauhid Zaman",
+    "subject": "Re: Bulldog tee",
+    "body": "Hi Tauhid,\n\nWe don\u2019t currently have a CC-TEE-WHITE tee available in size S, and there is no confirmed delivery date. We\u2019re looking into whether a restock is feasible and will follow up when we know more.\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 2,
+    "created_at": "2026-10-19T07:57:04-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 101,
+    "to": "Tauhid Zaman",
+    "subject": "Update on your white tee",
+    "body": "Hi Tauhid,\n\nWe currently have 0 white tees in size S available, so we can\u2019t fill your order for one from stock right now. We\u2019re checking on a restock, but any restock and delivery depend on approval; we can\u2019t confirm availability or a delivery date yet. We\u2019ll follow up when we have an update.\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 3,
+    "created_at": "2026-10-19T07:57:21-04:00",
+    "kind": "vendor_order",
+    "ticket_id": 101,
+    "to": "Bulldog Print Co",
+    "subject": "Order: 1 x CC-TEE-WHITE size S",
+    "body": "Please supply 1 x CC-TEE-WHITE in size S. Paid 8.00 (payment #2, approved by Madina Muratova (via Claude Code)).",
+    "lead_days": 5,
+    "earliest_delivery": "2026-09-05",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 4,
+    "created_at": "2026-10-19T07:58:05-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 101,
+    "to": "Tauhid Zaman",
+    "subject": "Update on your size S tee",
+    "body": "Hi Tauhid,\n\nWe currently have no CC-TEE-WHITE tees in size S available. We\u2019re working on a restock, but the timing isn\u2019t confirmed yet. We\u2019ll follow up when we have a confirmed timeline.\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 5,
+    "created_at": "2026-10-19T07:59:31-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 102,
+    "to": "Elm City Properties",
+    "subject": "Re: Rent due September 2",
+    "body": "Hello Elm City Properties,\n\nThank you for the notice. We confirm rent of $2,400 is due on September 2, 2026. The payment is going through the shop\u2019s internal approval before the due date.\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 6,
+    "created_at": "2026-10-19T08:00:14-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 102,
+    "to": "Elm City Properties",
+    "subject": "Re: Rent due September 2, 2026",
+    "body": "Hello Elm City Properties,\n\nThank you for the rent notice. We confirm that the $2,400 rent due September 2, 2026 has been paid.\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 7,
+    "created_at": "2026-10-19T08:01:43-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 103,
+    "to": "Yale AI Club",
+    "subject": "Re: Bulk hoodie discount",
+    "body": "Hi Yale AI Club,\n\nWe currently have 8 size M CC-HOOD-NAVY hoodies available. We can\u2019t confirm the full 20 from current stock; we\u2019re looking into restocking and will follow up, but don\u2019t have a confirmed restock date. The list price is $58 per hoodie. Your bulk-discount request is with the manager for review, and we\u2019ll confirm the decision.\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 8,
+    "created_at": "2026-10-19T08:03:06-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 103,
+    "to": "Yale AI Club",
+    "subject": "Re: Bulk hoodie discount",
+    "body": "Hi Yale AI Club,\n\nWe have 8 size M hoodies available now. The approved price of $52 each applies to those 8 only. The price override has not been approved for the remaining 12; the list price is $58 each. We\u2019re checking restock options for the remaining 12 and will follow up. Would you like to proceed with the 8 available at $52 each, and how would you like to proceed with the remaining 12?\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 9,
+    "created_at": "2026-10-19T08:06:31-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 101,
+    "to": "Tauhid Zaman",
+    "subject": "Update on your size S tee",
+    "body": "Hi Tauhid,\n\nThe white tee in size S is not available right now. The earliest delivery date for the restock is September 5, 2026. We\u2019ll let you know when it\u2019s available.\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  },
+  {
+    "draft_id": 10,
+    "created_at": "2026-10-19T08:07:53-04:00",
+    "kind": "customer_reply",
+    "ticket_id": 103,
+    "to": "Yale AI Club",
+    "subject": "Re: Bulk hoodie discount",
+    "body": "Hi Yale AI Club,\n\nWe can offer 8 navy hoodies in size M now at the approved price of $52 each. We can\u2019t currently supply the remaining 12. Would you like the 8 available now, or would you prefer to discuss the remaining quantity later?\n\nBest,\nCampus Customs",
+    "status": "draft - NOT sent"
+  }
+]

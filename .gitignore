@@ -1,0 +1,23 @@
+# Secrets: never commit the real .env (copy .env.example to .env and fill it in instead)
+.env
+.env.*
+!.env.example
+
+# Python environments and caches (recreate with: python -m venv .venv && pip install -r requirements.txt)
+.venv/
+venv/
+mcp_server/.venv/
+__pycache__/
+*.pyc
+
+# Frontend dependencies and build output (recreate with: npm --prefix frontend install)
+frontend/node_modules/
+frontend/dist/
+
+# Local tool settings and OS files
+.claude/
+.DS_Store
+
+# Temporary files written while saving logs and drafts or resetting the database
+*.tmp
+data/*.resetting

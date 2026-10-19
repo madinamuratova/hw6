@@ -1,0 +1,536 @@
+[
+  {
+    "label": "before fix",
+    "passed": 2,
+    "trials": [
+      {
+        "trial": 1,
+        "run1": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "waiting_on_human",
+            "summary": "The notice matches lease 1: Elm City Properties is owed $2,400.00, due 2026-09-02. Payment proposal #1 is pending, so the ticket remains open; landlord draft #1 says payment is going through internal approval before the due date.",
+            "actions_taken": [
+              "Proposed payment #1 for $2,400.00 from checking; pending human approval.",
+              "Saved draft #1 to Elm City Properties; not sent."
+            ],
+            "human_decisions_needed": [
+              "Approve or reject proposal #1 ($2,400.00 for lease 1 rent).",
+              "Review and send landlord draft #1."
+            ]
+          },
+          "usage": {
+            "requests": 13,
+            "tool_calls": 16,
+            "input_tokens": 30493,
+            "output_tokens": 2489
+          },
+          "pending_rent_proposals": [
+            1
+          ]
+        },
+        "approval": {
+          "ok": true,
+          "proposal_id": 1,
+          "payment_id": 1,
+          "kind": "rent",
+          "amount": 2400.0,
+          "account": "checking",
+          "new_balance": 1000.0,
+          "approved_by": "Test Approver (scratch copy)",
+          "change": "lease 1 next_due moved to 2026-10-02"
+        },
+        "after_approval": {
+          "today": "2026-08-31",
+          "lease": {
+            "id": 1,
+            "space_name": "Chapel Street shop",
+            "landlord": "Elm City Properties",
+            "monthly_rent": 2400.0,
+            "next_due": "2026-10-02",
+            "notes": null
+          },
+          "cash_accounts": [
+            {
+              "name": "checking",
+              "balance": 1000.0,
+              "date": "2026-08-31"
+            }
+          ]
+        },
+        "run2": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "handled",
+            "summary": "Facilities verified that Elm City Properties is the landlord on lease 1 and that the monthly rent is $2,400. The September 2 rent payment was recorded as payment #1; draft reply #2 is saved, and ticket 102 is resolved.",
+            "actions_taken": [
+              "Approved rent proposal #1 was confirmed as recorded payment #1 by Accounting.",
+              "Saved landlord reply draft #2 (not sent).",
+              "Resolved ticket 102."
+            ],
+            "human_decisions_needed": [
+              "Review and send landlord draft #2."
+            ]
+          },
+          "usage": {
+            "requests": 12,
+            "tool_calls": 15,
+            "input_tokens": 30067,
+            "output_tokens": 2500
+          }
+        },
+        "ticket_status_after": "resolved",
+        "checking_after": 1000.0,
+        "rent_proposals_total": 1,
+        "last_landlord_draft": "Hello Elm City Properties,\n\nThank you for the rent notice. We confirm the $2,400 rent due September 2, 2026, has been paid.\n\nBest,\nCampus Customs",
+        "passed": true
+      },
+      {
+        "trial": 2,
+        "run1": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "waiting_on_human",
+            "summary": "The rent notice matches lease 1: $2,400.00 is due to Elm City Properties on 2026-09-02. Payment proposal #1 is pending, so the ticket remains open pending human action.",
+            "actions_taken": [
+              "Payment proposal #1 created for $2,400.00 rent (pending approval).",
+              "Landlord reply draft #1 saved; not sent."
+            ],
+            "human_decisions_needed": [
+              "Approve or reject proposal #1 for $2,400.00 rent due 2026-09-02.",
+              "Review and send landlord reply draft #1."
+            ]
+          },
+          "usage": {
+            "requests": 12,
+            "tool_calls": 17,
+            "input_tokens": 28345,
+            "output_tokens": 2367
+          },
+          "pending_rent_proposals": [
+            1
+          ]
+        },
+        "approval": {
+          "ok": true,
+          "proposal_id": 1,
+          "payment_id": 1,
+          "kind": "rent",
+          "amount": 2400.0,
+          "account": "checking",
+          "new_balance": 1000.0,
+          "approved_by": "Test Approver (scratch copy)",
+          "change": "lease 1 next_due moved to 2026-10-02"
+        },
+        "after_approval": {
+          "today": "2026-08-31",
+          "lease": {
+            "id": 1,
+            "space_name": "Chapel Street shop",
+            "landlord": "Elm City Properties",
+            "monthly_rent": 2400.0,
+            "next_due": "2026-10-02",
+            "notes": null
+          },
+          "cash_accounts": [
+            {
+              "name": "checking",
+              "balance": 1000.0,
+              "date": "2026-08-31"
+            }
+          ]
+        },
+        "run2": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "handled",
+            "summary": "Lease 1's $2,400 rent due 2026-09-02 was confirmed paid on 2026-08-31 (payment #1). The lease's next due date is 2026-10-02, and ticket 102 was resolved; the landlord reply remains a draft for review and sending.",
+            "actions_taken": [
+              "Confirmed payment #1 recorded by Accounting",
+              "Resolved ticket 102"
+            ],
+            "human_decisions_needed": []
+          },
+          "usage": {
+            "requests": 12,
+            "tool_calls": 15,
+            "input_tokens": 30406,
+            "output_tokens": 2573
+          }
+        },
+        "ticket_status_after": "resolved",
+        "checking_after": 1000.0,
+        "rent_proposals_total": 1,
+        "last_landlord_draft": "Dear Elm City Properties,\n\nThank you for the rent notice. Our records show the $2,400 rent payment for September 2 was paid on August 31. The next due date on our lease record is October 2.\n\nBest,\nCampus Customs",
+        "passed": true
+      }
+    ]
+  },
+  {
+    "label": "after fix",
+    "passed": 4,
+    "trials": [
+      {
+        "trial": 1,
+        "run1": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "waiting_on_human",
+            "summary": "Facilities verified the notice against lease 1: $2,400 is due to Elm City Properties on 2026-09-02, and no approved payment covers that date. Payment proposal #1 is pending; landlord draft #1 explains that payment is awaiting internal approval.",
+            "actions_taken": [
+              "Payment proposal #1 created for $2,400 due 2026-09-02; pending human approval.",
+              "Draft #1 saved for Elm City Properties; not sent."
+            ],
+            "human_decisions_needed": [
+              "Approve or reject proposal #1 for $2,400 rent due 2026-09-02.",
+              "Review and send draft #1."
+            ]
+          },
+          "usage": {
+            "requests": 12,
+            "tool_calls": 17,
+            "input_tokens": 30806,
+            "output_tokens": 2897
+          },
+          "pending_rent_proposals": [
+            1
+          ]
+        },
+        "approval": {
+          "ok": true,
+          "proposal_id": 1,
+          "payment_id": 1,
+          "kind": "rent",
+          "amount": 2400.0,
+          "account": "checking",
+          "new_balance": 1000.0,
+          "approved_by": "Test Approver (scratch copy)",
+          "change": "rent due 2026-09-02 paid; lease 1 next_due moved to 2026-10-02",
+          "covered_due_date": "2026-09-02"
+        },
+        "after_approval": {
+          "today": "2026-08-31",
+          "lease": {
+            "id": 1,
+            "space_name": "Chapel Street shop",
+            "landlord": "Elm City Properties",
+            "monthly_rent": 2400.0,
+            "next_due": "2026-10-02",
+            "notes": null
+          },
+          "cash_accounts": [
+            {
+              "name": "checking",
+              "balance": 1000.0,
+              "date": "2026-08-31"
+            }
+          ],
+          "rent_payments": [
+            {
+              "payment_id": 1,
+              "amount": 2400.0,
+              "paid_at": "2026-08-31",
+              "approved_by": "Test Approver (scratch copy)",
+              "covered_due_date": "2026-09-02"
+            }
+          ]
+        },
+        "run2": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "handled",
+            "summary": "The rent notice was validated for $2,400 due 2026-09-02. Approved payment #1 covers that due date, and ticket 102 was resolved; landlord draft #2 is saved and still needs review and sending.",
+            "actions_taken": [
+              "Confirmed payment #1 covers due date 2026-09-02.",
+              "Saved draft #2 to Elm City Properties confirming the rent was paid; not sent.",
+              "Resolved ticket 102."
+            ],
+            "human_decisions_needed": []
+          },
+          "usage": {
+            "requests": 8,
+            "tool_calls": 10,
+            "input_tokens": 21946,
+            "output_tokens": 1476
+          }
+        },
+        "ticket_status_after": "resolved",
+        "checking_after": 1000.0,
+        "rent_proposals_total": 1,
+        "last_landlord_draft": "Hello Elm City Properties,\n\nThank you for the rent notice. We confirm that the $2,400 rent due September 2, 2026 has been paid.\n\nBest,\nCampus Customs",
+        "passed": true
+      },
+      {
+        "trial": 2,
+        "run1": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "waiting_on_human",
+            "summary": "Facilities confirmed the notice matches lease 1: $2,400 rent is due 2026-09-02, two days after the shop date. Payment proposal #1 for $2,400.00 from checking is pending approval; no payment covering that due date is recorded, so the ticket remains open.",
+            "actions_taken": [
+              "Payment proposal #1 submitted and pending human approval.",
+              "Landlord reply draft #1 saved; not sent."
+            ],
+            "human_decisions_needed": [
+              "Approve or reject proposal #1: $2,400.00 rent from checking, due 2026-09-02.",
+              "Review and send landlord draft #1."
+            ]
+          },
+          "usage": {
+            "requests": 12,
+            "tool_calls": 15,
+            "input_tokens": 29679,
+            "output_tokens": 2063
+          },
+          "pending_rent_proposals": [
+            1
+          ]
+        },
+        "approval": {
+          "ok": true,
+          "proposal_id": 1,
+          "payment_id": 1,
+          "kind": "rent",
+          "amount": 2400.0,
+          "account": "checking",
+          "new_balance": 1000.0,
+          "approved_by": "Test Approver (scratch copy)",
+          "change": "rent due 2026-09-02 paid; lease 1 next_due moved to 2026-10-02",
+          "covered_due_date": "2026-09-02"
+        },
+        "after_approval": {
+          "today": "2026-08-31",
+          "lease": {
+            "id": 1,
+            "space_name": "Chapel Street shop",
+            "landlord": "Elm City Properties",
+            "monthly_rent": 2400.0,
+            "next_due": "2026-10-02",
+            "notes": null
+          },
+          "cash_accounts": [
+            {
+              "name": "checking",
+              "balance": 1000.0,
+              "date": "2026-08-31"
+            }
+          ],
+          "rent_payments": [
+            {
+              "payment_id": 1,
+              "amount": 2400.0,
+              "paid_at": "2026-08-31",
+              "approved_by": "Test Approver (scratch copy)",
+              "covered_due_date": "2026-09-02"
+            }
+          ]
+        },
+        "run2": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "handled",
+            "summary": "The notice matches the lease: $2,400 rent was due 2026-09-02. Payment #1 covered that due date and was confirmed paid; the ticket is resolved, with the landlord draft saved for review and sending.",
+            "actions_taken": [
+              "Confirmed payment #1 covered rent due 2026-09-02",
+              "Resolved ticket 102"
+            ],
+            "human_decisions_needed": []
+          },
+          "usage": {
+            "requests": 9,
+            "tool_calls": 9,
+            "input_tokens": 23661,
+            "output_tokens": 1375
+          }
+        },
+        "ticket_status_after": "resolved",
+        "checking_after": 1000.0,
+        "rent_proposals_total": 1,
+        "last_landlord_draft": "Hello Elm City Properties,\n\nThank you for the notice. We confirm that the $2,400 rent due September 2, 2026 has been paid.\n\nBest,\nCampus Customs",
+        "passed": true
+      },
+      {
+        "trial": 3,
+        "run1": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "waiting_on_human",
+            "summary": "Facilities confirmed the rent notice matches lease 1: $2,400.00 is due on 2026-09-02, and no approved payment covers that due date. Payment proposal #1 is pending human approval; landlord reply draft #1 is saved and says payment is going through internal approval.",
+            "actions_taken": [
+              "Payment proposal #1 created for $2,400.00 rent (pending approval).",
+              "Landlord reply draft #1 saved; not sent."
+            ],
+            "human_decisions_needed": [
+              "Approve or reject proposal #1: pay $2,400.00 rent due 2026-09-02.",
+              "Review and send landlord reply draft #1."
+            ]
+          },
+          "usage": {
+            "requests": 13,
+            "tool_calls": 16,
+            "input_tokens": 32409,
+            "output_tokens": 2357
+          },
+          "pending_rent_proposals": [
+            1
+          ]
+        },
+        "approval": {
+          "ok": true,
+          "proposal_id": 1,
+          "payment_id": 1,
+          "kind": "rent",
+          "amount": 2400.0,
+          "account": "checking",
+          "new_balance": 1000.0,
+          "approved_by": "Test Approver (scratch copy)",
+          "change": "rent due 2026-09-02 paid; lease 1 next_due moved to 2026-10-02",
+          "covered_due_date": "2026-09-02"
+        },
+        "after_approval": {
+          "today": "2026-08-31",
+          "lease": {
+            "id": 1,
+            "space_name": "Chapel Street shop",
+            "landlord": "Elm City Properties",
+            "monthly_rent": 2400.0,
+            "next_due": "2026-10-02",
+            "notes": null
+          },
+          "cash_accounts": [
+            {
+              "name": "checking",
+              "balance": 1000.0,
+              "date": "2026-08-31"
+            }
+          ],
+          "rent_payments": [
+            {
+              "payment_id": 1,
+              "amount": 2400.0,
+              "paid_at": "2026-08-31",
+              "approved_by": "Test Approver (scratch copy)",
+              "covered_due_date": "2026-09-02"
+            }
+          ]
+        },
+        "run2": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "handled",
+            "summary": "The September 2, 2026 rent notice from Elm City Properties matches lease 1. Approved payment #1 covered the $2,400 rent due; reply draft #2 is saved for review and sending.",
+            "actions_taken": [
+              "Confirmed payment #1 covered the September 2, 2026 due date (Facilities).",
+              "Saved landlord reply draft #2; not sent.",
+              "Resolved ticket 102."
+            ],
+            "human_decisions_needed": [
+              "Review and send landlord reply draft #2."
+            ]
+          },
+          "usage": {
+            "requests": 8,
+            "tool_calls": 10,
+            "input_tokens": 21324,
+            "output_tokens": 1373
+          }
+        },
+        "ticket_status_after": "resolved",
+        "checking_after": 1000.0,
+        "rent_proposals_total": 1,
+        "last_landlord_draft": "Hello Elm City Properties,\n\nThank you for the notice. We confirm that the $2,400 rent due September 2 has been paid.\n\nBest,\nCampus Customs",
+        "passed": true
+      },
+      {
+        "trial": 4,
+        "run1": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "waiting_on_human",
+            "summary": "Facilities verified the notice against lease 1: Elm City Properties' rent of $2,400 is due 2026-09-02, and no payment covers that date. Payment proposal #1 is pending human approval; the landlord reply is drafted and not sent.",
+            "actions_taken": [
+              "Payment proposal #1 created for $2,400 rent due 2026-09-02 (pending approval).",
+              "Landlord reply draft #1 saved; not sent."
+            ],
+            "human_decisions_needed": [
+              "Approve or reject proposal #1: rent payment of $2,400 due 2026-09-02.",
+              "Review and send landlord draft #1."
+            ]
+          },
+          "usage": {
+            "requests": 13,
+            "tool_calls": 16,
+            "input_tokens": 32993,
+            "output_tokens": 2854
+          },
+          "pending_rent_proposals": [
+            1
+          ]
+        },
+        "approval": {
+          "ok": true,
+          "proposal_id": 1,
+          "payment_id": 1,
+          "kind": "rent",
+          "amount": 2400.0,
+          "account": "checking",
+          "new_balance": 1000.0,
+          "approved_by": "Test Approver (scratch copy)",
+          "change": "rent due 2026-09-02 paid; lease 1 next_due moved to 2026-10-02",
+          "covered_due_date": "2026-09-02"
+        },
+        "after_approval": {
+          "today": "2026-08-31",
+          "lease": {
+            "id": 1,
+            "space_name": "Chapel Street shop",
+            "landlord": "Elm City Properties",
+            "monthly_rent": 2400.0,
+            "next_due": "2026-10-02",
+            "notes": null
+          },
+          "cash_accounts": [
+            {
+              "name": "checking",
+              "balance": 1000.0,
+              "date": "2026-08-31"
+            }
+          ],
+          "rent_payments": [
+            {
+              "payment_id": 1,
+              "amount": 2400.0,
+              "paid_at": "2026-08-31",
+              "approved_by": "Test Approver (scratch copy)",
+              "covered_due_date": "2026-09-02"
+            }
+          ]
+        },
+        "run2": {
+          "outcome": {
+            "ticket_id": 102,
+            "status": "handled",
+            "summary": "The rent notice was verified for a due date of 2026-09-02. The approved $2,400 payment #1 covers that date, and ticket 102 was resolved; landlord draft #2 is ready for review and sending.",
+            "actions_taken": [
+              "Facilities verified payment #1 covers the notice due date.",
+              "Saved landlord reply draft #2 to Elm City Properties.",
+              "Resolved ticket 102."
+            ],
+            "human_decisions_needed": []
+          },
+          "usage": {
+            "requests": 9,
+            "tool_calls": 10,
+            "input_tokens": 23751,
+            "output_tokens": 1445
+          }
+        },
+        "ticket_status_after": "resolved",
+        "checking_after": 1000.0,
+        "rent_proposals_total": 1,
+        "last_landlord_draft": "Hello Elm City Properties,\n\nThank you for the rent notice. We confirm that the $2,400 rent due September 2, 2026 has been paid.\n\nBest,\nCampus Customs",
+        "passed": true
+      }
+    ]
+  }
+]

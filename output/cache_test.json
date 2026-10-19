@@ -1,0 +1,1207 @@
+{
+  "test": "Problem 4: handbook caching comparison",
+  "generated_at": "2026-10-19T05:10:30+00:00",
+  "model": "gpt-6-luna",
+  "prices_per_1m_usd": {
+    "input_per_1m": 0.1,
+    "cached_input_per_1m": 0.01,
+    "cache_write_per_1m": 0.125,
+    "output_per_1m": 0.5
+  },
+  "prices_source": "OpenAI Standard pricing, per 1M tokens (MGT 409 Lecture 11)",
+  "method": {
+    "same_for_both_runs": [
+      "agent.build_agent(): same model, Portkey client (response cache bypassed), tools, and VendorReport output",
+      "agent.load_instructions(): same prompts/prompt.md + data/shop_handbook.md",
+      "same user message as agent.review() and the same 12 documents in the same order",
+      "token counts are the API's usage data for every model request"
+    ],
+    "only_difference": {
+      "no_cache": "A new random tag at the end of the instructions on every model request.",
+      "cache_handbook": "One fixed tag at the end of the instructions for the whole run, new for this test."
+    },
+    "cost_formula": "uncached input x input_per_1m + cached input x cached_input_per_1m + cache write x cache_write_per_1m + output x output_per_1m, all / 1,000,000"
+  },
+  "runs": {
+    "no_cache": {
+      "tag_rule": "A new random tag at the end of the instructions on every model request.",
+      "documents": [
+        {
+          "file": "p01_bluehen_quote.html",
+          "run_id": "4c5256de",
+          "requests": [
+            {
+              "input_tokens": 11311,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11185,
+              "output_tokens": 28,
+              "cost_usd": 0.001424725
+            },
+            {
+              "input_tokens": 11489,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11363,
+              "output_tokens": 105,
+              "cost_usd": 0.001485475
+            }
+          ],
+          "input_tokens": 22800,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22548,
+          "output_tokens": 133,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.0028185,
+            "output": 6.65e-05,
+            "total": 0.0029102
+          },
+          "answer": {
+            "vendor": "Blue Hen Apparel",
+            "sku": "CC-HD-006",
+            "unit_price": 21.8,
+            "lead_time_days": 14,
+            "min_order": 240,
+            "decision": "recommend",
+            "reason": "All four checks pass: Blue Hen Apparel is approved, the $21.80 unit price is at or below the $25.44 maximum, lead time is 14 days (21 or less), and the minimum order is 240 units (600 or less)."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p02_elmcity_quote.html",
+          "run_id": "d8d03d2e",
+          "requests": [
+            {
+              "input_tokens": 11313,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11187,
+              "output_tokens": 29,
+              "cost_usd": 0.001425475
+            },
+            {
+              "input_tokens": 11502,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11376,
+              "output_tokens": 115,
+              "cost_usd": 0.0014921
+            }
+          ],
+          "input_tokens": 22815,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22563,
+          "output_tokens": 144,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002820375,
+            "output": 7.2e-05,
+            "total": 0.002917575
+          },
+          "answer": {
+            "vendor": "Elm City Screenprint",
+            "sku": "CC-TE-004",
+            "unit_price": 9.83,
+            "lead_time_days": 9,
+            "min_order": 300,
+            "decision": "do_not_recommend",
+            "reason": "The price check fails: the quoted $9.83 per unit exceeds the SKU's $8.51 maximum."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p03_ivyprint_catalog.html",
+          "run_id": "1f721027",
+          "requests": [
+            {
+              "input_tokens": 11311,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11185,
+              "output_tokens": 29,
+              "cost_usd": 0.001425225
+            },
+            {
+              "input_tokens": 11502,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11376,
+              "output_tokens": 73,
+              "cost_usd": 0.0014711
+            }
+          ],
+          "input_tokens": 22813,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22561,
+          "output_tokens": 102,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002820125,
+            "output": 5.1e-05,
+            "total": 0.002896325
+          },
+          "answer": {
+            "vendor": "Ivy Print Co",
+            "sku": "CC-PG-006",
+            "unit_price": 5.83,
+            "lead_time_days": 10,
+            "min_order": 150,
+            "decision": "do_not_recommend",
+            "reason": "The approved vendor check fails because Ivy Print Co is on the removed vendor list."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p04_harborstitch_quote.html",
+          "run_id": "3fd1e821",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11186,
+              "output_tokens": 31,
+              "cost_usd": 0.00142635
+            },
+            {
+              "input_tokens": 11481,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11355,
+              "output_tokens": 155,
+              "cost_usd": 0.001509475
+            }
+          ],
+          "input_tokens": 22793,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22541,
+          "output_tokens": 186,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002817625,
+            "output": 9.3e-05,
+            "total": 0.002935825
+          },
+          "answer": {
+            "vendor": "Harbor Stitch Embroidery",
+            "sku": "CC-HT-001",
+            "unit_price": 8.68,
+            "lead_time_days": 16,
+            "min_order": 120,
+            "decision": "recommend",
+            "reason": "All four purchasing checks pass: Harbor Stitch Embroidery is approved, the $8.68 unit price is within the $9.78 limit, lead time is 16 days, and the minimum order is 120 units."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p05_maplemills_quote.pdf",
+          "run_id": "4d441346",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11186,
+              "output_tokens": 29,
+              "cost_usd": 0.00142535
+            },
+            {
+              "input_tokens": 11454,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11328,
+              "output_tokens": 159,
+              "cost_usd": 0.0015081
+            }
+          ],
+          "input_tokens": 22766,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22514,
+          "output_tokens": 188,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.00281425,
+            "output": 9.4e-05,
+            "total": 0.00293345
+          },
+          "answer": {
+            "vendor": "Maple Leaf Mills",
+            "sku": "CC-WV-003",
+            "unit_price": 24.16,
+            "lead_time_days": 28,
+            "min_order": 100,
+            "decision": "do_not_recommend",
+            "reason": "The lead-time check fails: the quoted 28 business days exceeds the 21-day limit."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p06_qtextile_quote.pdf",
+          "run_id": "5fcc81b8",
+          "requests": [
+            {
+              "input_tokens": 11313,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11187,
+              "output_tokens": 29,
+              "cost_usd": 0.001425475
+            },
+            {
+              "input_tokens": 11513,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11387,
+              "output_tokens": 77,
+              "cost_usd": 0.001474475
+            }
+          ],
+          "input_tokens": 22826,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22574,
+          "output_tokens": 106,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.00282175,
+            "output": 5.3e-05,
+            "total": 0.00289995
+          },
+          "answer": {
+            "vendor": "Quinnipiac Textile Deals",
+            "sku": "CC-TE-017",
+            "unit_price": 7.01,
+            "lead_time_days": 6,
+            "min_order": 200,
+            "decision": "do_not_recommend",
+            "reason": "The approved vendor check fails because Quinnipiac Textile Deals is on the removed vendor list."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p07_longwharf_quote.pdf",
+          "run_id": "10287487",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11186,
+              "output_tokens": 29,
+              "cost_usd": 0.00142535
+            },
+            {
+              "input_tokens": 11489,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11363,
+              "output_tokens": 133,
+              "cost_usd": 0.001499475
+            }
+          ],
+          "input_tokens": 22801,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22549,
+          "output_tokens": 162,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002818625,
+            "output": 8.1e-05,
+            "total": 0.002924825
+          },
+          "answer": {
+            "vendor": "Long Wharf Knitting",
+            "sku": "CC-KN-001",
+            "unit_price": 17.23,
+            "lead_time_days": 35,
+            "min_order": 120,
+            "decision": "do_not_recommend",
+            "reason": "The lead-time check fails: the quoted 35 business days exceeds the 21-day limit."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p08_chapelst_email.eml",
+          "run_id": "38d258e3",
+          "requests": [
+            {
+              "input_tokens": 11311,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11185,
+              "output_tokens": 30,
+              "cost_usd": 0.001425725
+            },
+            {
+              "input_tokens": 11480,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11354,
+              "output_tokens": 141,
+              "cost_usd": 0.00150235
+            }
+          ],
+          "input_tokens": 22791,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22539,
+          "output_tokens": 171,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002817375,
+            "output": 8.55e-05,
+            "total": 0.002928075
+          },
+          "answer": {
+            "vendor": "Chapel Street Goods",
+            "sku": "CC-PG-010",
+            "unit_price": 4.27,
+            "lead_time_days": 6,
+            "min_order": 250,
+            "decision": "recommend",
+            "reason": "All four purchasing checks pass: Chapel Street Goods is approved, $4.27 is within the $5.34 maximum, lead time is 6 days (21 or less), and minimum order is 250 units (600 or less)."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p09_westville_email.eml",
+          "run_id": "cb624c6e",
+          "requests": [
+            {
+              "input_tokens": 11314,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11188,
+              "output_tokens": 30,
+              "cost_usd": 0.0014261
+            },
+            {
+              "input_tokens": 11475,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11349,
+              "output_tokens": 132,
+              "cost_usd": 0.001497225
+            }
+          ],
+          "input_tokens": 22789,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22537,
+          "output_tokens": 162,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002817125,
+            "output": 8.1e-05,
+            "total": 0.002923325
+          },
+          "answer": {
+            "vendor": "Westville Bag Co",
+            "sku": "CC-BG-007",
+            "unit_price": 24.82,
+            "lead_time_days": 26,
+            "min_order": 144,
+            "decision": "do_not_recommend",
+            "reason": "The lead-time check fails: the stated 26 days exceeds the 21-day limit."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p10_eastrock_email.eml",
+          "run_id": "00b97e40",
+          "requests": [
+            {
+              "input_tokens": 11311,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11185,
+              "output_tokens": 30,
+              "cost_usd": 0.001425725
+            },
+            {
+              "input_tokens": 11500,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11374,
+              "output_tokens": 144,
+              "cost_usd": 0.00150635
+            }
+          ],
+          "input_tokens": 22811,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22559,
+          "output_tokens": 174,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002819875,
+            "output": 8.7e-05,
+            "total": 0.002932075
+          },
+          "answer": {
+            "vendor": "East Rock Ceramics",
+            "sku": "CC-MG-003",
+            "unit_price": 4.87,
+            "lead_time_days": 11,
+            "min_order": 96,
+            "decision": "recommend",
+            "reason": "Approved-vendor, price ($4.87 at or below the $6.10 limit), lead-time (11 days), and minimum-order (96 units) checks all pass."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p11_yorkst_quote.html",
+          "run_id": "492798b1",
+          "requests": [
+            {
+              "input_tokens": 11309,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11183,
+              "output_tokens": 29,
+              "cost_usd": 0.001424975
+            },
+            {
+              "input_tokens": 11456,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11330,
+              "output_tokens": 182,
+              "cost_usd": 0.00151985
+            }
+          ],
+          "input_tokens": 22765,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22513,
+          "output_tokens": 211,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002814125,
+            "output": 0.0001055,
+            "total": 0.002944825
+          },
+          "answer": {
+            "vendor": "York Street Headwear",
+            "sku": "CC-HW-002",
+            "unit_price": 13.62,
+            "lead_time_days": 12,
+            "min_order": 180,
+            "decision": "do_not_recommend",
+            "reason": "The price check fails: the quoted unit price is $13.62, above the $11.52 maximum for this SKU."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p12_bluehen_quote.pdf",
+          "run_id": "5997b45c",
+          "requests": [
+            {
+              "input_tokens": 11311,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11185,
+              "output_tokens": 28,
+              "cost_usd": 0.001424725
+            },
+            {
+              "input_tokens": 11486,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11360,
+              "output_tokens": 131,
+              "cost_usd": 0.0014981
+            }
+          ],
+          "input_tokens": 22797,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 0,
+          "cache_write_tokens": 22545,
+          "output_tokens": 159,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.0,
+            "cache_write": 0.002818125,
+            "output": 7.95e-05,
+            "total": 0.002922825
+          },
+          "answer": {
+            "vendor": "Blue Hen Apparel",
+            "sku": "CC-CR-010",
+            "unit_price": 27.72,
+            "lead_time_days": 13,
+            "min_order": 200,
+            "decision": "do_not_recommend",
+            "reason": "The price check fails: the quoted unit price of $27.72 exceeds the SKU's $23.25 maximum."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        }
+      ],
+      "totals": {
+        "documents_run": 12,
+        "documents_failed": 0,
+        "model_requests": 24,
+        "input_tokens": 273567,
+        "uncached_input_tokens": 3024,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 270543,
+        "output_tokens": 1898,
+        "cost_usd": {
+          "uncached_input": 0.0003024,
+          "cached_input": 0.0,
+          "cache_write": 0.033817875,
+          "output": 0.000949,
+          "total": 0.035069275
+        },
+        "average_cost_per_document_usd": 0.0029224395833333332,
+        "answers_matching_key": 12,
+        "trap_calls": 0
+      }
+    },
+    "cache_handbook": {
+      "tag_rule": "One fixed tag at the end of the instructions for the whole run, new for this test.",
+      "documents": [
+        {
+          "file": "p01_bluehen_quote.html",
+          "run_id": "1d119534",
+          "requests": [
+            {
+              "input_tokens": 11311,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 0,
+              "cache_write_tokens": 11185,
+              "output_tokens": 28,
+              "cost_usd": 0.001424725
+            },
+            {
+              "input_tokens": 11489,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11185,
+              "cache_write_tokens": 178,
+              "output_tokens": 103,
+              "cost_usd": 0.0001982
+            }
+          ],
+          "input_tokens": 22800,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 11185,
+          "cache_write_tokens": 11363,
+          "output_tokens": 131,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00011185,
+            "cache_write": 0.001420375,
+            "output": 6.55e-05,
+            "total": 0.001622925
+          },
+          "answer": {
+            "vendor": "Blue Hen Apparel",
+            "sku": "CC-HD-006",
+            "unit_price": 21.8,
+            "lead_time_days": 14,
+            "min_order": 240,
+            "decision": "recommend",
+            "reason": "All four purchasing checks pass: Blue Hen Apparel is approved, $21.80 is at or below the $25.44 maximum, the 14-day lead time is within 21 days, and the 240-unit minimum is within 600 units."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p02_elmcity_quote.html",
+          "run_id": "cf8e7f8e",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 25,
+              "output_tokens": 29,
+              "cost_usd": 0.000141835
+            },
+            {
+              "input_tokens": 11503,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11186,
+              "cache_write_tokens": 191,
+              "output_tokens": 141,
+              "cost_usd": 0.000218835
+            }
+          ],
+          "input_tokens": 22815,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22347,
+          "cache_write_tokens": 216,
+          "output_tokens": 170,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022347,
+            "cache_write": 2.7e-05,
+            "output": 8.5e-05,
+            "total": 0.00036067
+          },
+          "answer": {
+            "vendor": "Elm City Screenprint",
+            "sku": "CC-TE-004",
+            "unit_price": 9.83,
+            "lead_time_days": 9,
+            "min_order": 300,
+            "decision": "do_not_recommend",
+            "reason": "The price check fails: the quoted unit price is $9.83, above the $8.51 maximum for this SKU."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p03_ivyprint_catalog.html",
+          "run_id": "456313ab",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 25,
+              "output_tokens": 29,
+              "cost_usd": 0.000141835
+            },
+            {
+              "input_tokens": 11501,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11186,
+              "cache_write_tokens": 189,
+              "output_tokens": 119,
+              "cost_usd": 0.000207585
+            }
+          ],
+          "input_tokens": 22813,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22347,
+          "cache_write_tokens": 214,
+          "output_tokens": 148,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022347,
+            "cache_write": 2.675e-05,
+            "output": 7.4e-05,
+            "total": 0.00034942
+          },
+          "answer": {
+            "vendor": "Ivy Print Co",
+            "sku": "CC-PG-006",
+            "unit_price": 5.83,
+            "lead_time_days": 10,
+            "min_order": 150,
+            "decision": "do_not_recommend",
+            "reason": "The approved-vendor check fails because Ivy Print Co is on the removed-vendor list."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p04_harborstitch_quote.html",
+          "run_id": "c890f735",
+          "requests": [
+            {
+              "input_tokens": 11314,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 27,
+              "output_tokens": 31,
+              "cost_usd": 0.000143085
+            },
+            {
+              "input_tokens": 11482,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11188,
+              "cache_write_tokens": 168,
+              "output_tokens": 137,
+              "cost_usd": 0.00021398
+            }
+          ],
+          "input_tokens": 22796,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22349,
+          "cache_write_tokens": 195,
+          "output_tokens": 168,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022349,
+            "cache_write": 2.4375e-05,
+            "output": 8.4e-05,
+            "total": 0.000357065
+          },
+          "answer": {
+            "vendor": "Harbor Stitch Embroidery",
+            "sku": "CC-HT-001",
+            "unit_price": 8.68,
+            "lead_time_days": 16,
+            "min_order": 120,
+            "decision": "recommend",
+            "reason": "Approved-vendor, price ($8.68 is at or below the $9.78 maximum), lead-time (16 days), and minimum-order (120 units) checks all pass."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p05_maplemills_quote.pdf",
+          "run_id": "e574a041",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 25,
+              "output_tokens": 29,
+              "cost_usd": 0.000141835
+            },
+            {
+              "input_tokens": 11456,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11186,
+              "cache_write_tokens": 144,
+              "output_tokens": 131,
+              "cost_usd": 0.00020796
+            }
+          ],
+          "input_tokens": 22768,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22347,
+          "cache_write_tokens": 169,
+          "output_tokens": 160,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022347,
+            "cache_write": 2.1125e-05,
+            "output": 8e-05,
+            "total": 0.000349795
+          },
+          "answer": {
+            "vendor": "Maple Leaf Mills",
+            "sku": "CC-WV-003",
+            "unit_price": 24.16,
+            "lead_time_days": 28,
+            "min_order": 100,
+            "decision": "do_not_recommend",
+            "reason": "The lead-time check fails: the quoted 28 days exceeds the 21-day limit."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p06_qtextile_quote.pdf",
+          "run_id": "8fe8db5d",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 25,
+              "output_tokens": 29,
+              "cost_usd": 0.000141835
+            },
+            {
+              "input_tokens": 11513,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11186,
+              "cache_write_tokens": 201,
+              "output_tokens": 132,
+              "cost_usd": 0.000215585
+            }
+          ],
+          "input_tokens": 22825,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22347,
+          "cache_write_tokens": 226,
+          "output_tokens": 161,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022347,
+            "cache_write": 2.825e-05,
+            "output": 8.05e-05,
+            "total": 0.00035742
+          },
+          "answer": {
+            "vendor": "Quinnipiac Textile Deals",
+            "sku": "CC-TE-017",
+            "unit_price": 7.01,
+            "lead_time_days": 6,
+            "min_order": 200,
+            "decision": "do_not_recommend",
+            "reason": "The approved-vendor check fails because Quinnipiac Textile Deals is on the removed vendor list."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p07_longwharf_quote.pdf",
+          "run_id": "8d5abc4a",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 25,
+              "output_tokens": 29,
+              "cost_usd": 0.000141835
+            },
+            {
+              "input_tokens": 11488,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11186,
+              "cache_write_tokens": 176,
+              "output_tokens": 149,
+              "cost_usd": 0.00022096
+            }
+          ],
+          "input_tokens": 22800,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22347,
+          "cache_write_tokens": 201,
+          "output_tokens": 178,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022347,
+            "cache_write": 2.5125e-05,
+            "output": 8.9e-05,
+            "total": 0.000362795
+          },
+          "answer": {
+            "vendor": "Long Wharf Knitting",
+            "sku": "CC-KN-001",
+            "unit_price": 17.23,
+            "lead_time_days": 35,
+            "min_order": 120,
+            "decision": "do_not_recommend",
+            "reason": "The lead-time check fails: the stated 35-day lead time exceeds the 21-day limit."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p08_chapelst_email.eml",
+          "run_id": "2876fad1",
+          "requests": [
+            {
+              "input_tokens": 11313,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 26,
+              "output_tokens": 30,
+              "cost_usd": 0.00014246
+            },
+            {
+              "input_tokens": 11481,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11187,
+              "cache_write_tokens": 168,
+              "output_tokens": 145,
+              "cost_usd": 0.00021797
+            }
+          ],
+          "input_tokens": 22794,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22348,
+          "cache_write_tokens": 194,
+          "output_tokens": 175,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022348,
+            "cache_write": 2.425e-05,
+            "output": 8.75e-05,
+            "total": 0.00036043
+          },
+          "answer": {
+            "vendor": "Chapel Street Goods",
+            "sku": "CC-PG-010",
+            "unit_price": 4.27,
+            "lead_time_days": 6,
+            "min_order": 250,
+            "decision": "recommend",
+            "reason": "All four purchasing checks pass: Chapel Street Goods is approved, $4.27 is at or below the $5.34 max unit cost, lead time is 6 days (21 or less), and minimum order is 250 units (600 or less)."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p09_westville_email.eml",
+          "run_id": "781b6789",
+          "requests": [
+            {
+              "input_tokens": 11313,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 26,
+              "output_tokens": 30,
+              "cost_usd": 0.00014246
+            },
+            {
+              "input_tokens": 11477,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11187,
+              "cache_write_tokens": 164,
+              "output_tokens": 140,
+              "cost_usd": 0.00021497
+            }
+          ],
+          "input_tokens": 22790,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22348,
+          "cache_write_tokens": 190,
+          "output_tokens": 170,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022348,
+            "cache_write": 2.375e-05,
+            "output": 8.5e-05,
+            "total": 0.00035743
+          },
+          "answer": {
+            "vendor": "Westville Bag Co",
+            "sku": "CC-BG-007",
+            "unit_price": 24.82,
+            "lead_time_days": 26,
+            "min_order": 144,
+            "decision": "do_not_recommend",
+            "reason": "The lead-time check fails: the quoted 26 days exceeds the 21-day limit."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p10_eastrock_email.eml",
+          "run_id": "a11d3f32",
+          "requests": [
+            {
+              "input_tokens": 11313,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 26,
+              "output_tokens": 30,
+              "cost_usd": 0.00014246
+            },
+            {
+              "input_tokens": 11500,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11187,
+              "cache_write_tokens": 187,
+              "output_tokens": 149,
+              "cost_usd": 0.000222345
+            }
+          ],
+          "input_tokens": 22813,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22348,
+          "cache_write_tokens": 213,
+          "output_tokens": 179,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022348,
+            "cache_write": 2.6625e-05,
+            "output": 8.95e-05,
+            "total": 0.000364805
+          },
+          "answer": {
+            "vendor": "East Rock Ceramics",
+            "sku": "CC-MG-003",
+            "unit_price": 4.87,
+            "lead_time_days": 11,
+            "min_order": 96,
+            "decision": "recommend",
+            "reason": "Approved-vendor, price ($4.87 at or below the $6.10 maximum), lead-time (11 days), and minimum-order (96 units) checks all pass."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p11_yorkst_quote.html",
+          "run_id": "56152793",
+          "requests": [
+            {
+              "input_tokens": 11312,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 25,
+              "output_tokens": 29,
+              "cost_usd": 0.000141835
+            },
+            {
+              "input_tokens": 11454,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11186,
+              "cache_write_tokens": 142,
+              "output_tokens": 134,
+              "cost_usd": 0.00020921
+            }
+          ],
+          "input_tokens": 22766,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22347,
+          "cache_write_tokens": 167,
+          "output_tokens": 163,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022347,
+            "cache_write": 2.0875e-05,
+            "output": 8.15e-05,
+            "total": 0.000351045
+          },
+          "answer": {
+            "vendor": "York Street Headwear",
+            "sku": "CC-HW-002",
+            "unit_price": 13.62,
+            "lead_time_days": 12,
+            "min_order": 180,
+            "decision": "do_not_recommend",
+            "reason": "The price check fails: the quoted unit price is $13.62, above the $11.52 maximum for CC-HW-002."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        },
+        {
+          "file": "p12_bluehen_quote.pdf",
+          "run_id": "465e8a42",
+          "requests": [
+            {
+              "input_tokens": 11311,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11161,
+              "cache_write_tokens": 24,
+              "output_tokens": 28,
+              "cost_usd": 0.00014121
+            },
+            {
+              "input_tokens": 11485,
+              "uncached_input_tokens": 126,
+              "cached_input_tokens": 11185,
+              "cache_write_tokens": 174,
+              "output_tokens": 80,
+              "cost_usd": 0.0001862
+            }
+          ],
+          "input_tokens": 22796,
+          "uncached_input_tokens": 252,
+          "cached_input_tokens": 22346,
+          "cache_write_tokens": 198,
+          "output_tokens": 108,
+          "cost_usd": {
+            "uncached_input": 2.52e-05,
+            "cached_input": 0.00022346,
+            "cache_write": 2.475e-05,
+            "output": 5.4e-05,
+            "total": 0.00032741
+          },
+          "answer": {
+            "vendor": "Blue Hen Apparel",
+            "sku": "CC-CR-010",
+            "unit_price": 27.72,
+            "lead_time_days": 13,
+            "min_order": 200,
+            "decision": "do_not_recommend",
+            "reason": "The price check fails: the quoted unit price of $27.72 exceeds the SKU's $23.25 maximum."
+          },
+          "matches_key": true,
+          "fields_not_matching_key": [],
+          "trap_calls": 0
+        }
+      ],
+      "totals": {
+        "documents_run": 12,
+        "documents_failed": 0,
+        "model_requests": 24,
+        "input_tokens": 273576,
+        "uncached_input_tokens": 3024,
+        "cached_input_tokens": 257006,
+        "cache_write_tokens": 13546,
+        "output_tokens": 1911,
+        "cost_usd": {
+          "uncached_input": 0.0003024,
+          "cached_input": 0.00257006,
+          "cache_write": 0.00169325,
+          "output": 0.0009555,
+          "total": 0.00552121
+        },
+        "average_cost_per_document_usd": 0.00046010083333333334,
+        "answers_matching_key": 12,
+        "trap_calls": 0
+      }
+    }
+  },
+  "comparison": {
+    "total_cost_no_cache_usd": 0.035069275,
+    "total_cost_cache_handbook_usd": 0.00552121,
+    "saved_usd": 0.029548065,
+    "saved_percent": 84.2562756144802,
+    "average_cost_per_document_no_cache_usd": 0.0029224395833333332,
+    "average_cost_per_document_cache_handbook_usd": 0.00046010083333333334,
+    "average_cost_per_document_cache_handbook_docs_2_to_12_usd": 0.00035438954545454545,
+    "projection_1000_docs_per_day_usd": {
+      "no_cache": {
+        "per_day": 2.922439583333333,
+        "per_30_days": 87.6731875,
+        "per_365_days": 1066.6904479166667
+      },
+      "cache_handbook_all_12_average": {
+        "per_day": 0.46010083333333335,
+        "per_30_days": 13.803025,
+        "per_365_days": 167.93680416666666
+      },
+      "cache_handbook_docs_2_to_12_average": {
+        "per_day": 0.35438954545454543,
+        "per_30_days": 10.631686363636364,
+        "per_365_days": 129.35218409090908
+      }
+    }
+  }
+}

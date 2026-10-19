@@ -1,0 +1,284 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "check": "GET /api/health",
+      "passed": true,
+      "body": {
+        "ok": true,
+        "model": "gpt-6-luna",
+        "database": "/var/folders/jx/wr4f74kn1g7d2xf8qh2d7wr00000gn/T/campus_api_test_sxapjyya/db.sqlite",
+        "active_run": null
+      }
+    },
+    {
+      "check": "GET /api/tickets lists 101-103 as open, nothing pending",
+      "passed": true,
+      "tickets": [
+        {
+          "id": 101,
+          "type": "customer_order",
+          "requester": "Tauhid Zaman",
+          "subject": "Bulldog tee",
+          "sku": "CC-TEE-WHITE",
+          "size": "S",
+          "qty": 1,
+          "lease_id": null,
+          "invoice_id": 501,
+          "status": "open",
+          "notes": "Needs a tee in size S.",
+          "created_at": "2026-08-31T09:15:00-04:00",
+          "pending_proposal_ids": [],
+          "last_run": null
+        },
+        {
+          "id": 102,
+          "type": "rent_notice",
+          "requester": "Elm City Properties",
+          "subject": "Rent due",
+          "sku": null,
+          "size": null,
+          "qty": null,
+          "lease_id": 1,
+          "invoice_id": null,
+          "status": "open",
+          "notes": "Email: shop rent due in 2 days.",
+          "created_at": "2026-08-31T11:05:00-04:00",
+          "pending_proposal_ids": [],
+          "last_run": null
+        },
+        {
+          "id": 103,
+          "type": "price_override",
+          "requester": "Yale AI Club",
+          "subject": "Bulk hoodie discount",
+          "sku": "CC-HOOD-NAVY",
+          "size": "M",
+          "qty": 20,
+          "lease_id": null,
+          "invoice_id": null,
+          "status": "open",
+          "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+          "created_at": "2026-08-31T16:55:00-04:00",
+          "pending_proposal_ids": [],
+          "last_run": null
+        }
+      ]
+    },
+    {
+      "check": "GET /api/tickets/999 -> 404",
+      "passed": true,
+      "body": {
+        "detail": "Ticket 999 does not exist."
+      }
+    },
+    {
+      "check": "GET /api/cash: checking 3400, today 2026-08-31, nothing pending",
+      "passed": true,
+      "body": {
+        "account": "checking",
+        "balance": 3400.0,
+        "as_of": "2026-08-31",
+        "today": "2026-08-31",
+        "pending_total": 0,
+        "balance_if_all_pending_approved": 3400.0,
+        "recent_payments": []
+      }
+    },
+    {
+      "check": "CORS allows the Vite dev server",
+      "passed": true
+    },
+    {
+      "check": "POST /api/tickets/102/run -> 202 with a run_id",
+      "passed": true,
+      "body": {
+        "run_id": "run-20261019-080544-b6861d",
+        "ticket_id": 102,
+        "status": "running",
+        "started_at": "2026-10-19T08:05:44-04:00",
+        "finished_at": null,
+        "report": null,
+        "error": null,
+        "usage": null
+      }
+    },
+    {
+      "check": "a second run while one is going -> 409",
+      "passed": true,
+      "body": {
+        "detail": "Run run-20261019-080544-b6861d is still going. Wait for it to finish."
+      }
+    },
+    {
+      "check": "the run finishes and reports back",
+      "passed": true,
+      "status": "finished",
+      "error": null
+    },
+    {
+      "check": "GET /api/events?ticket_id=102 returns that run's steps",
+      "passed": true,
+      "events": 7
+    },
+    {
+      "check": "GET /api/runs/<unknown> -> 404",
+      "passed": true
+    },
+    {
+      "check": "GET /api/approvals and /api/tickets show the pending proposals",
+      "passed": true
+    },
+    {
+      "check": "pending proposals don't move cash",
+      "passed": true,
+      "body": {
+        "account": "checking",
+        "balance": 3400.0,
+        "as_of": "2026-08-31",
+        "today": "2026-08-31",
+        "pending_total": 3240.0,
+        "balance_if_all_pending_approved": 160.0,
+        "recent_payments": []
+      }
+    },
+    {
+      "check": "approve with an empty name -> 422",
+      "passed": true
+    },
+    {
+      "check": "approve signed with an agent name -> 409",
+      "passed": true,
+      "body": {
+        "detail": "A named human must make this decision; agent names and placeholders are not accepted."
+      }
+    },
+    {
+      "check": "resolve while a proposal is pending -> 409",
+      "passed": true,
+      "body": {
+        "detail": "Ticket 102 still has pending proposal(s) [1]."
+      }
+    },
+    {
+      "check": "approve rent -> paid, checking 3400 -> 1000",
+      "passed": true,
+      "body": {
+        "ok": true,
+        "proposal_id": 1,
+        "payment_id": 1,
+        "kind": "rent",
+        "amount": 2400.0,
+        "account": "checking",
+        "new_balance": 1000.0,
+        "approved_by": "Test Approver (scratch copy)",
+        "change": "rent due 2026-09-02 paid; lease 1 next_due moved to 2026-10-02",
+        "covered_due_date": "2026-09-02"
+      }
+    },
+    {
+      "check": "approving the same proposal twice -> 409",
+      "passed": true,
+      "body": {
+        "detail": "Proposal 1 is already approved."
+      }
+    },
+    {
+      "check": "reject the invoice -> no cash moves",
+      "passed": true
+    },
+    {
+      "check": "approve an unknown proposal -> 404",
+      "passed": true,
+      "body": {
+        "detail": "Proposal 999 does not exist."
+      }
+    },
+    {
+      "check": "approval refused when cash is short (160 left, purchase needs 175) -> 409",
+      "passed": true,
+      "refused": {
+        "detail": "Not enough cash: checking has 160.00, this needs 175.00."
+      }
+    },
+    {
+      "check": "GET /api/drafts?ticket_id=101 returns the saved draft (NOT sent)",
+      "passed": true,
+      "drafts": [
+        {
+          "draft_id": 1,
+          "created_at": "2026-10-19T08:05:44-04:00",
+          "kind": "customer_reply",
+          "ticket_id": 101,
+          "to": "Tauhid Zaman",
+          "subject": "Your tee",
+          "body": "Hi Tauhid, thanks for your order.",
+          "status": "draft - NOT sent"
+        }
+      ]
+    },
+    {
+      "check": "reset without a name -> 422",
+      "passed": true
+    },
+    {
+      "check": "reset restores checking 3400 and 3 open tickets",
+      "passed": true,
+      "body": {
+        "ok": true,
+        "message": "Working database reset to the original values.",
+        "cash_accounts": [
+          {
+            "name": "checking",
+            "balance": 3400.0
+          }
+        ],
+        "open_tickets": 3,
+        "tickets": [
+          {
+            "id": 101,
+            "type": "customer_order",
+            "requester": "Tauhid Zaman",
+            "subject": "Bulldog tee",
+            "sku": "CC-TEE-WHITE",
+            "size": "S",
+            "qty": 1,
+            "lease_id": null,
+            "invoice_id": 501,
+            "status": "open",
+            "notes": "Needs a tee in size S.",
+            "created_at": "2026-08-31T09:15:00-04:00"
+          },
+          {
+            "id": 102,
+            "type": "rent_notice",
+            "requester": "Elm City Properties",
+            "subject": "Rent due",
+            "sku": null,
+            "size": null,
+            "qty": null,
+            "lease_id": 1,
+            "invoice_id": null,
+            "status": "open",
+            "notes": "Email: shop rent due in 2 days.",
+            "created_at": "2026-08-31T11:05:00-04:00"
+          },
+          {
+            "id": 103,
+            "type": "price_override",
+            "requester": "Yale AI Club",
+            "subject": "Bulk hoodie discount",
+            "sku": "CC-HOOD-NAVY",
+            "size": "M",
+            "qty": 20,
+            "lease_id": null,
+            "invoice_id": null,
+            "status": "open",
+            "notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+            "created_at": "2026-08-31T16:55:00-04:00"
+          }
+        ]
+      }
+    }
+  ]
+}
